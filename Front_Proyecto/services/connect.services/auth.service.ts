@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-interface UserData {
+export interface UserData {
   name: string;
   username: string;
+  role: string;
   image: string;
 }
 
@@ -13,11 +14,12 @@ interface UserData {
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<UserData | null>(null);
   currentUser = this.currentUserSubject.asObservable();
+
   login(userData: UserData) {
-    console.log('AuthService login called with:', userData);
     localStorage.setItem('user', JSON.stringify(userData));
     this.currentUserSubject.next(userData);
   }
+
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
@@ -25,9 +27,13 @@ export class AuthService {
   }
 
   loadUserFromLocalStorage() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.currentUserSubject.next(JSON.parse(user));
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      this.currentUserSubject.next(JSON.parse(stored));
     }
+  }
+
+  getCurrentUser(): UserData | null {
+    return this.currentUserSubject.getValue();
   }
 }

@@ -1,191 +1,95 @@
-import userModel from "../model/user.model.js";
+import userModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-//Hace posible un inicio de sesión. Comprueba que el usuario exista y que la contraseña sea correcta.
+// Inicia sesión: comprueba que el usuario exista y que la contraseña sea correcta.
 export async function loginService(username, password) {
-  const user = await userModel.findOne({ username }).select("+password"); // Busca el usuario por el username y selecciona la contraseña
-  console.log(user);
+  const user = await userModel.findOne({ username }).select("+password");
 
   if (!user) {
-    return {
-      status: 404,
-      message: "User not found",
-    };
+    return { status: 404, message: "User not found" };
   }
 
-  const isPasswordValid = await bcrypt.compare(
-    password.toString(),
-    user.password
-  );
+  const isPasswordValid = await bcrypt.compare(password.toString(), user.password);
 
   if (!isPasswordValid) {
-    return {
-      status: 401,
-      message: "Invalid password",
-    };
+    return { status: 401, message: "Invalid password" };
   }
 
-  // Token con rol
   const token = jwt.sign(
-    {
-      id: user._id,
-      username: user.username,
-      email: user.email,
-      role: user.role, // incluyo el rol en el token
-    },
+    { id: user._id, username: user.username, email: user.email, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: "3h" }
   );
 
-  console.log("-----------------------------------------");
-  console.log("¡SE HA GUARDADO EL TOKEN!");
-  console.log(`Token: ${token}`);
-  console.log("-----------------------------------------");
-
   return {
     status: 200,
-    message: {
-      token: token,
-      role: user.role, // Para el front es util
-      password: user.password,
-    },
+    message: { token, role: user.role },
   };
 }
 
-//Genera un usuario nuevo
+// Registra un nuevo usuario con rol "user" por defecto.
 export async function registerService(name, email, username, password) {
-  const user = await userModel.findOne({ username });
+  const existingUser = await userModel.findOne({ username });
 
-  if (user) {
-    return {
-      status: 409,
-      message: "User already exists",
-    };
+  if (existingUser) {
+    return { status: 409, message: "User already exists" };
   }
 
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password.toString(), saltRounds);
-  console.log(hashedPassword);
-  console.log(password);
+  const hashedPassword = await bcrypt.hash(password.toString(), 10);
+  await userModel.create({ name, email, username, password: hashedPassword, role: "user" });
 
-  // Crea el usuario con rol "user" por defecto
-  const newUser = await userModel.create({
-    name,
-    email,
-    username,
-    password: hashedPassword,
-    role: "user", // Admin se crea manualmente en la base de datos
-  });
-
-  console.log(newUser);
-
-  return {
-    status: 201,
-    message: "User created successfully",
-  };
+  return { status: 201, message: "User created successfully" };
 }
 
-//Genera el código de verificación
+// Genera un código de verificación de 6 dígitos y lo guarda hasheado en la base de datos.
 export async function generateCodeService(email) {
   const user = await userModel.findOne({ email });
 
   if (!user) {
-    return {
-      status: 404,
-      message: "Email not found",
-    };
-  } else {
-    const code = Math.floor(100000 + Math.random() * 999999); // Genera un código aleatorio de 6 dígitos (de 100000 a 999999 para que nunca se superen los 6 dígitos)
-    const saltRounds = 10;
-    const hashedCode = await bcrypt.hash(code.toString(), saltRounds);
-    console.log(hashedCode);
-    console.log(code);
-
-    const codeRetriever = await userModel.updateOne(
-      {
-        email,
-      },
-      {
-        $set: {
-          code: hashedCode,
-        },
-      }
-    );
-    console.log("actualización: ", codeRetriever);
-    const resetToken = jwt.sign(
-      {
-        id: user._id,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    //TO DO SEND THE CODE TO THE EMAIL USING API
-
-    console.log(resetToken);
-    return {
-      status: 200,
-      message: "Code sent successfully",
-      resetToken,
-    };
+    return { status: 404, message: "Email not found" };
   }
+
+  const code = Math.floor(100000 + Math.random() * 900000); // siempre 6 dígitos
+  const hashedCode = await bcrypt.hash(code.toString(), 10);
+
+  await userModel.updateOne({ email }, { $set: { code: hashedCode } });
+
+  const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+  // TODO: enviar el código al email mediante una API de correo
+  console.log(`Código de recuperación para ${email}: ${code}`);
+
+  return { status: 200, message: "Code sent successfully", resetToken };
 }
 
-//Comprueba que el código guardado en la base de datos corresponda al email
+// Comprueba que el código introducido coincida con el guardado en la base de datos.
 export async function checkCodeService(checkCode, email) {
-  const storedCode = await userModel.findOne({ email }); //busca el código por el email
-  if (!storedCode) {
-    return {
-      status: 404,
-      message: "Email not found or code not set",
-    };
+  const user = await userModel.findOne({ email }).select("+code");
+
+  if (!user || !user.code) {
+    return { status: 404, message: "Email not found or code not set" };
   }
-  console.log("holi");
-  const isCodeValid = await bcrypt.compare(
-    checkCode.toString(),
-    storedCode.code
-  );
+
+  const isCodeValid = await bcrypt.compare(checkCode.toString(), user.code);
 
   if (!isCodeValid) {
-    console.log("Nooooo");
-    return {
-      status: 401,
-      message: "Invalid code",
-    };
-  } else {
-    console.log("Siiiiii");
-    return {
-      //si todo es correcto este mensaje no aparece en la consola del navegador
-      status: 200,
-      message: "Code found",
-    };
+    return { status: 401, message: "Invalid code" };
   }
+
+  return { status: 200, message: "Code found" };
 }
 
+// Actualiza la contraseña del usuario con el nuevo valor hasheado.
 export async function resetPasswordService(email, password) {
-  const storedEmail = await userModel.findOne({ email });
+  const user = await userModel.findOne({ email });
 
-  if (!storedEmail) {
-    return {
-      status: 404,
-      message: "Email not found",
-    };
+  if (!user) {
+    return { status: 404, message: "Email not found" };
   }
 
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password.toString(), saltRounds);
-  console.log(hashedPassword);
-  console.log(password);
+  const hashedPassword = await bcrypt.hash(password.toString(), 10);
+  await userModel.updateOne({ email }, { $set: { password: hashedPassword } });
 
-  const retrievedPassword = await userModel.updateOne(
-    { email: email }, //Filtro para buscar el email
-    { $set: { password: hashedPassword } } //Actualiza la contraseña
-  );
-  console.log("actualización: ", retrievedPassword);
-
-  return {
-    status: 200,
-    message: "Password reset successfully",
-  };
+  return { status: 200, message: "Password reset successfully" };
 }

@@ -6,9 +6,11 @@
   }
 
   <div class="cards-container">
-    <!-- comprueba si blogs está vacío y muestra un mensaje de carga si es así -->
-    @if (blogs.length === 0) {
+    <!-- comprueba si está buscando en bd, o si no hay resultados -->
+    @if (isLoading) {
     <p style="text-align: center; width: 100%; grid-column: 1/-1">Cargando publicaciones...</p>
+    } @else if (blogs.length === 0) {
+    <p style="text-align: center; width: 100%; grid-column: 1/-1">Aún no hay publicaciones en el blog. ¡Sé el primero en crear una!</p>
     }
     <!-- Itera sobre la lista de blogs y crea una tarjeta para cada uno -->
     @for (blog of blogs; track $index) {

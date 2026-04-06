@@ -1,12 +1,12 @@
 import { Component, signal, OnInit, computed } from '@angular/core';
 import { ConnectService } from '../../../services/connect.services/connect.service';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-resset-password',
-  imports: [FormsModule, RouterOutlet, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './resset-password.component.html',
   styleUrl: './resset-password.component.css',
 })

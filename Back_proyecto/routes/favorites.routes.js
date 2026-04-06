@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../model/user.model.js";
+import User from "../models/user.model.js";
 import Obra from "../models/obrasModel.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 

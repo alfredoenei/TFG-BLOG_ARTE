@@ -1,10 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConnectService } from '../../../services/connect.services/connect.service';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-code',
-  imports: [FormsModule, RouterOutlet],
+  imports: [FormsModule],
   templateUrl: './code.component.html',
   styleUrl: './code.component.css',
 })

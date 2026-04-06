@@ -1,13 +1,38 @@
-<div
-  class="profile-sidebar"
-  [class.expanded]="isExpanded"
-  (mouseenter)="isExpanded = true"
-  (mouseleave)="isExpanded = false"
-  *ngIf="user"
->
-  <div class="user-info">
-    <img [src]="user.image" [alt]="user.username" />
-    <span *ngIf="isExpanded">Bienvenid@ {{ user.username }}</span>
-    <span *ngIf="!isExpanded">{{ user.username }}</span>
+<div class="profile-panel" [class.expanded]="isExpanded" *ngIf="user">
+
+  <!-- Cabecera del panel: avatar y toggle -->
+  <div class="panel-header" (click)="isExpanded = !isExpanded">
+    <img [src]="user.image" [alt]="user.username" class="avatar" />
+    <div class="header-info" *ngIf="isExpanded">
+      <span class="username">{{ user.username }}</span>
+      <span class="role-badge" [class.admin]="user.role === 'admin'">
+        {{ user.role === 'admin' ? '⭐ Admin' : '👤 Usuario' }}
+      </span>
+    </div>
+    <span class="toggle-icon">{{ isExpanded ? '›' : '‹' }}</span>
   </div>
+
+  <!-- Menú de navegación (solo visible cuando está expandido) -->
+  <nav class="panel-nav" *ngIf="isExpanded">
+    <a class="panel-link" routerLink="/blog">
+      <span class="icon">📝</span>
+      <span>Blog</span>
+    </a>
+    <a class="panel-link" routerLink="/store">
+      <span class="icon">🖼️</span>
+      <span>Tienda</span>
+    </a>
+    <a class="panel-link" routerLink="/cart">
+      <span class="icon">🛒</span>
+      <span>Mi carrito</span>
+    </a>
+
+    <div class="divider"></div>
+
+    <button class="panel-link logout-btn" (click)="logout()">
+      <span class="icon">🚪</span>
+      <span>Cerrar sesión</span>
+    </button>
+  </nav>
+
 </div>

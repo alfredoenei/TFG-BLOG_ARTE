@@ -112,3 +112,68 @@
   background-color: #FCA311;
   color: #14213D;
 }
+
+/* ─── Dropdown de usuario ─────────────────────────────────────────────── */
+.user-dropdown {
+  min-width: 220px;
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Cabecera del dropdown con avatar + nombre + rol */
+.dropdown-header-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background-color: rgba(252, 163, 17, 0.08);
+  border-bottom: 1px solid rgba(252, 163, 17, 0.2);
+}
+
+.dropdown-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FCA311;
+  flex-shrink: 0;
+}
+
+.dropdown-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-username {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #e5e5e5;
+}
+
+.dropdown-role {
+  font-size: 0.72rem;
+  color: #9aa5b4;
+  margin-top: 2px;
+}
+
+.dropdown-role.is-admin {
+  color: #FCA311;
+  font-weight: 600;
+}
+
+/* Icono de cada item del menú */
+.di-icon {
+  margin-right: 6px;
+}
+
+/* Ítem de cerrar sesión en rojo */
+.logout-item {
+  color: #e05252 !important;
+}
+
+.logout-item:hover {
+  background-color: rgba(224, 82, 82, 0.12) !important;
+  color: #ff6b6b !important;
+}

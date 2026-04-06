@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ConnectService } from '../../../services/connect.services/connect.service';
 
 @Component({
   selector: 'app-retrieve-password',
-  imports: [FormsModule, RouterOutlet],
+  imports: [FormsModule],
   templateUrl: './retrieve-password.component.html',
   styleUrl: './retrieve-password.component.css',
 })

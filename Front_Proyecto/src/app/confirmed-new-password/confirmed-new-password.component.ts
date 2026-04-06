@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-confirmed-new-password',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './confirmed-new-password.component.html',
   styleUrl: './confirmed-new-password.component.css',
 })

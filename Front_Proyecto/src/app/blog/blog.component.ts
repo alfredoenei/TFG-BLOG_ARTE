@@ -13,6 +13,7 @@ import { AuthService } from '../../../services/connect.services/auth.service';
 })
 export class BlogComponent implements OnInit {
   blogs: any[] = []; // Array para almacenar los blogs obtenidos del backend
+  isLoading: boolean = true; // Estado de carga
 
   constructor(
     private router: Router,
@@ -29,10 +30,11 @@ export class BlogComponent implements OnInit {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // Ordena los blogs por fecha de creación, siendo el más reciente el primero
       });
       // Forzamos la detección de cambios para asegurar que la vista se actualice con los datos asíncronos
-      this.cdr.detectChanges();
     } else {
       this.blogs = [];
     }
+    this.isLoading = false;
+    this.cdr.detectChanges();
   }
 
   newBlogEntry() {

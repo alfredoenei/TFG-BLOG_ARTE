@@ -85,7 +85,7 @@
           </li>
         </ul>
 
-        <!-- Opción de Perfil solo si hay usuario (User Profile Dropdown) -->
+        <!-- Menú de perfil: solo visible cuando hay sesión iniciada -->
         <ul class="navbar-nav ms-2 mb-2 mb-lg-0 profile-menu" *ngIf="user">
           <li class="nav-item dropdown">
             <a
@@ -95,28 +95,60 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <!-- Imagen de perfil del usuario -->
               <img [src]="user.image" [alt]="user.username" class="profile-img" />
-              <!-- Nombre del usuario -->
               <span>{{ user.username }}</span>
             </a>
 
-            <ul class="dropdown-menu dropdown-menu-end">
-              <!-- Información del usuario -->
-              <li>
-                <span class="dropdown-item-text fw-bold">{{ user.name }}</span>
+            <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+
+              <!-- Cabecera del usuario -->
+              <li class="dropdown-header-user">
+                <img [src]="user.image" [alt]="user.username" class="dropdown-avatar" />
+                <div class="dropdown-user-info">
+                  <span class="dropdown-username">{{ user.username }}</span>
+                  <span class="dropdown-role" [class.is-admin]="user.role === 'admin'">
+                    {{ user.role === 'admin' ? '⭐ Administrador' : '👤 Usuario' }}
+                  </span>
+                </div>
               </li>
-              <li>
-                <span class="dropdown-item-text text-muted">@{{ user.username }}</span>
-              </li>
+
               <li><hr class="dropdown-divider" /></li>
-              <!-- Opción para cerrar sesión -->
+
+              <!-- Accesos rápidos -->
               <li>
-                <a class="dropdown-item" href="#" (click)="logout()">Cerrar Sesión</a>
+                <a class="dropdown-item" routerLink="/blog">
+                  <span class="di-icon">📝</span> Ir al Blog
+                </a>
               </li>
+              <li>
+                <a class="dropdown-item" routerLink="/new-blog-entry">
+                  <span class="di-icon">✏️</span> Nueva publicación
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/store">
+                  <span class="di-icon">🖼️</span> Explorar tienda
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/cart">
+                  <span class="di-icon">🛒</span> Mi carrito
+                </a>
+              </li>
+
+              <li><hr class="dropdown-divider" /></li>
+
+              <!-- Cerrar sesión -->
+              <li>
+                <a class="dropdown-item logout-item" href="#" (click)="logout()">
+                  <span class="di-icon">🚪</span> Cerrar sesión
+                </a>
+              </li>
+
             </ul>
           </li>
         </ul>
+
       </form>
     </div>
   </div>
