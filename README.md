@@ -145,5 +145,5 @@ La aplicación estará disponible en **http://localhost:4200**.
 
 ## Autor
 
-Andrés — Trabajo de Fin de Grado  
+Alfredo Enei — Trabajo de Fin de Grado  
 [GitHub](https://github.com/alfredoenei)
