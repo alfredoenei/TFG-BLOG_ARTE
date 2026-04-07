@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Obra } from '../models/obra';
 
 export interface ObrasResponse {
@@ -15,7 +16,7 @@ export interface ObrasResponse {
   providedIn: 'root',
 })
 export class ObrasService {
-  private apiUrl = 'http://localhost:3000/api/obras';
+  private apiUrl = environment.apiUrl + '/obras';
 
   constructor(private http: HttpClient) {}
 

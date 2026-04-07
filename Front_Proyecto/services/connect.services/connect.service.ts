@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { environment } from '../../src/environments/environment';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/auth',
+  baseURL: environment.apiUrl + '/auth',
 });
 
 // Añade el token de autenticación a cada petición de forma automática

@@ -17,7 +17,22 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:4200" }));
+const allowedOrigins = [
+  "http://localhost:4200",
+  "https://tfg-art-proyecto-alfredo.netlify.app", // Anticipamos la URL de Netlify
+  /\.netlify\.app$/ // Permitir cualquier subdominio de Netlify (opcional)
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS (Backend TFG)'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
