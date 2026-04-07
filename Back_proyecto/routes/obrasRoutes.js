@@ -37,6 +37,7 @@ router.get("/", async (req, res) => {
       disponible,
       artistaId, // si el front ya tiene el ID
       artista, // si el front manda el nombre
+      categoria, // 👈 NUEVO FILTRO PARA COLECCIONES
       q, // búsqueda general
       page = 1, // default page
       limit = 10, // default limit
@@ -72,6 +73,10 @@ router.get("/", async (req, res) => {
 
     if (disponible !== undefined) {
       filter.disponible = disponible === "true";
+    }
+
+    if (categoria) {
+      filter.categoria = categoria;
     }
 
     // ----- FILTRO POR ARTISTA -----

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, HostListener, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Necesario para usar *ngIf en el HTML
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -6,15 +6,21 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../../../services/connect.services/auth.service';
 import { CartService } from '../services/cart.service';
 
+import { ImagePipe } from '../pipes/image.pipe';
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ImagePipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
   user: any = null; // Variable para guardar la información del usuario logueado
+  isUserDropdownOpen = signal(false); // Control nativo del desplegable
+  isExploraDropdownOpen = signal(false); // Control nativo del desplegable
+
+  private el = inject(ElementRef);
 
   constructor(
     private authService: AuthService,
@@ -29,11 +35,28 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  // Permite que la imagen de perfil se cargue desde el backend en producción
-  getUserImage(imagePath: string): string {
-    if (!imagePath) return 'assets/default-avatar.png'; // Fallback por si no hay imagen
-    if (imagePath.startsWith('http')) return imagePath;
-    return `${environment.backendBaseUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+  toggleUserDropdown(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isUserDropdownOpen.set(!this.isUserDropdownOpen());
+    // Cerramos el otro por si acaso
+    this.isExploraDropdownOpen.set(false);
+  }
+
+  toggleExploraDropdown(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isExploraDropdownOpen.set(!this.isExploraDropdownOpen());
+    this.isUserDropdownOpen.set(false);
+  }
+
+  // Cierra los desplegables si se hace clic fuera del componente
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.el.nativeElement.contains(event.target)) {
+      this.isUserDropdownOpen.set(false);
+      this.isExploraDropdownOpen.set(false);
+    }
   }
 
   // ✅ Buscador por ARTISTA 

@@ -20,7 +20,7 @@
             
             <img
               class="card-img-top obra-img"
-              [src]="getImageUrl(obra)"
+              [src]="obra | image"
               [alt]="obra.titulo"
               loading="lazy"
             />
@@ -36,7 +36,7 @@
               <h5 class="card-title mb-1">{{ obra.titulo }}</h5>
 
               <p class="text-muted small mb-2">
-                {{ obra.artista?.nombre || 'Anónimo' }}
+                {{ obra.artista.nombre || 'Anónimo' }}
               </p>
 
               <div class="d-flex align-items-center gap-2 mb-2">

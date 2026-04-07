@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { environment } from '../../environments/environment';
 
+import { ImagePipe } from '../pipes/image.pipe';
 import { ObrasService } from '../services/obras.service';
 import { CartService } from '../services/cart.service';
 import { Obra } from '../models/obra';
@@ -12,7 +12,7 @@ import { Obra } from '../models/obra';
 @Component({
   selector: 'app-store',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ImagePipe],
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css'],
 })
@@ -30,38 +30,6 @@ export class StoreComponent implements OnInit {
     private obrasService: ObrasService,
     public cart: CartService
   ) { }
-
-  //  Base URL del backend (donde está Express sirviendo /ImagenesDeObras)
-  private readonly backendBaseUrl = environment.backendBaseUrl;
-
-  // Aca hice un map para las imagenes que no coincidian bien
-
-  private readonly imageMap: Record<string, string> = {
-    'Guernica': 'Guernica.jpg',
-    'Máscara funeraria de Tutankamon': 'MascaraTutan-Kamon.jpg',
-    'La creacion de Adán (Capilla Sixtina)': 'LaCreacionDeAdan.jpg',
-    'Las Meninas': 'LasMeninas.jpg',
-    'Pinturas rupestres de la Cueva de Altamira': 'altamira.jpg',
-    'Laocoonte y sus hijos': 'Laocoonte.jpg',
-    'Mosaico del Emperador Justiniano y su séquito (San Vital, Rávena)': 'MosaicoJustiniano.jpg',
-
-    'David': 'David.jpg',
-    'La Piedad de Villeneuve-les-Avignon': 'LaPiedadDeVilleneuve-les-Avignon.jpg',
-    'El 3 de Mayo en Madrid (Los fusilamientos)': 'Fusilamiento.jpg',
-    'La Libertad guiando al pueblo': 'LibertadGuiandoAlPueblo.jpg',
-
-    // (si los tengo en el seed)
-    'La persistencia de la memoria': 'LaPersistenciaDeLaMemoria.jpg',
-    'El grito': 'ElGrito.jpg',
-    'La noche estrellada': 'LaNocheEstrellada.jpg',
-    'Impresión, sol naciente': 'ImpresionSolNaciente.jpg',
-    'Fuente': 'Fountain.jpg',
-    'Cena': 'DinnerParty.jpg',
-    'Cindy Sherman': 'CindySherman.jpg',
-    'Lo imposible': 'ElCorderoImposible.jpg',
-    'Niña con globo': 'GirlWithBallon.jpg',
-  };
-
 
   ngOnInit(): void {
     // Cada vez que cambian los filtros del buscador
@@ -110,28 +78,5 @@ export class StoreComponent implements OnInit {
   // Helper visual (tipo / colección)
   getTipoLabel(tipo?: string): string {
     return (tipo ?? 'Sin tipo').trim();
-  }
-
-  //  URL de imagen para cada obra (con fallback)
-  getImageUrl(obra: Obra): string {
-    if (obra.image) {
-      return `${this.backendBaseUrl}${obra.image}`;
-    }
-
-    const file =
-      this.imageMap[obra.titulo] ??
-      this.slugifyFileName(obra.titulo) + '.jpg';
-
-    return `${this.backendBaseUrl}/ImagenesDeObras/${file}`;
-  }
-
-  // Aca corregimos mascara de tutancamon (tiraba error) (aprox)
-
-  private slugifyFileName(input: string): string {
-    return (input ?? '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // saca acentos
-      .replace(/[^a-zA-Z0-9]+/g, '') // saca espacios y símbolos
-      .trim();
   }
 }

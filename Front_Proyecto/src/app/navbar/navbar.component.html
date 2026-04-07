@@ -24,18 +24,18 @@
           <a class="nav-link" routerLink="/store">Store</a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" [class.show]="isExploraDropdownOpen()">
           <a
             class="nav-link dropdown-toggle"
             href="#"
             role="button"
-            data-bs-toggle="dropdown"
+            (click)="toggleExploraDropdown($event)"
             aria-expanded="false"
           >
             Explora
           </a>
 
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" [class.show]="isExploraDropdownOpen()">
             <li>
               <a class="dropdown-item" routerLink="/arte-hasta-s-xix">Arte hasta el siglo XIX</a>
             </li>
@@ -87,23 +87,23 @@
 
         <!-- Menú de perfil: solo visible cuando hay sesión iniciada -->
         <ul class="navbar-nav ms-2 mb-2 mb-lg-0 profile-menu" *ngIf="user">
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" [class.show]="isUserDropdownOpen()">
             <a
               class="nav-link dropdown-toggle d-flex align-items-center gap-2"
               href="#"
               role="button"
-              data-bs-toggle="dropdown"
+              (click)="toggleUserDropdown($event)"
               aria-expanded="false"
             >
-              <img [src]="getUserImage(user.image)" [alt]="user.username" class="profile-img" />
+              <img [src]="user.image | image:'user'" [alt]="user.username" class="profile-img" />
               <span>{{ user.username }}</span>
             </a>
 
-            <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+            <ul class="dropdown-menu dropdown-menu-end user-dropdown" [class.show]="isUserDropdownOpen()">
 
               <!-- Cabecera del usuario -->
               <li class="dropdown-header-user">
-                <img [src]="getUserImage(user.image)" [alt]="user.username" class="dropdown-avatar" />
+                <img [src]="user.image | image:'user'" [alt]="user.username" class="dropdown-avatar" />
                 <div class="dropdown-user-info">
                   <span class="dropdown-username">{{ user.username }}</span>
                   <span class="dropdown-role" [class.is-admin]="user.role === 'admin'">
