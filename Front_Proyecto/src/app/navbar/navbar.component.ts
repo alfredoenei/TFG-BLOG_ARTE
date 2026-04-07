@@ -1,7 +1,6 @@
 import { Component, OnInit, signal, HostListener, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Necesario para usar *ngIf en el HTML
 import { Router, RouterLink } from '@angular/router';
-import { environment } from '../../environments/environment';
 
 import { AuthService } from '../../../services/connect.services/auth.service';
 import { CartService } from '../services/cart.service';

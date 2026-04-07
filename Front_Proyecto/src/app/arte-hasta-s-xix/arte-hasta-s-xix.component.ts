@@ -1,4 +1,4 @@
-// arte-contemporaneo.component.ts
+// arte-hasta-s-xix.component.ts
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObrasService } from '../services/obras.service';
@@ -36,7 +36,6 @@ export class ArteHastaSXIXComponent implements OnInit {
     this.obrasService.getObras1().subscribe({
       next: (res) => {
         this.obras1.set(res.results);
-        console.log('RESPUESTA BACKEND OBRAS1:', res);
       },
       error: (err) => {
         console.error('Error al cargar obras:', err);

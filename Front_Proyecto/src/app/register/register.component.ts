@@ -46,7 +46,6 @@ export class RegisterComponent {
       email: this.email(),
       password: this.password(),
     };
-    console.log('Register submitted', user);
     await this.connectService.register(user);
     this.router.navigate(['/login']);
   }

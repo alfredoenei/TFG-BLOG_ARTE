@@ -1,4 +1,4 @@
-// arte-contemporaneo.component.ts
+// vanguardias.component.ts
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObrasService } from '../services/obras.service';
@@ -36,7 +36,6 @@ export class VanguardiasComponent implements OnInit {
     this.obrasService.getObras2().subscribe({
       next: (res) => {
         this.obras2.set(res.results);
-        console.log('RESPUESTA BACKEND OBRAS2:', res);
       },
       error: (err) => {
         console.error('Error al cargar obras:', err);

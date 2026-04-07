@@ -24,7 +24,7 @@ export class ArteContemporaneoComponent implements OnInit {
     this.obraSeleccionada = null;
   }
 
-  // Declarar obras2 como una señal que contiene un array
+  // Declarar obras3 como una señal que contiene un array
   obras3 = signal<any[]>([]);
 
   // Declarar isLoading como una señal, inicializada en true
@@ -36,7 +36,6 @@ export class ArteContemporaneoComponent implements OnInit {
     this.obrasService.getObras3().subscribe({
       next: (res) => {
         this.obras3.set(res.results);
-        console.log('RESPUESTA BACKEND OBRAS3:', res);
       },
       error: (err) => {
         console.error('Error al cargar obras:', err);

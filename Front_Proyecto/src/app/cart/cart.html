@@ -45,7 +45,7 @@
               <div class="flex-grow-1">
                 <div class="fw-semibold">{{ item.obra.titulo }}</div>
                 <div class="text-muted small">
-                  {{ item.obra.artista?.nombre || 'Anónimo' }} · {{ item.obra.anio ?? '—' }}
+                  {{ item.obra.artista.nombre || 'Anónimo' }} · {{ item.obra.anio ?? '—' }}
                 </div>
                 <div class="item-price mt-1">{{ item.obra.precio ?? 0 }} €</div>
               </div>
