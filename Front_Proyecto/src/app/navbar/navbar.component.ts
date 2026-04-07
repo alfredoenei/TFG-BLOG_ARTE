@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Necesario para usar *ngIf en el HTML
 import { Router, RouterLink } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 import { AuthService } from '../../../services/connect.services/auth.service';
 import { CartService } from '../services/cart.service';
@@ -26,6 +27,13 @@ export class NavbarComponent implements OnInit {
     this.authService.currentUser.subscribe((user) => {
       this.user = user;
     });
+  }
+
+  // Permite que la imagen de perfil se cargue desde el backend en producción
+  getUserImage(imagePath: string): string {
+    if (!imagePath) return 'assets/default-avatar.png'; // Fallback por si no hay imagen
+    if (imagePath.startsWith('http')) return imagePath;
+    return `${environment.backendBaseUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
   }
 
   // ✅ Buscador por ARTISTA 

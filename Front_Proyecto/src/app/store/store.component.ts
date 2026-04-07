@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { environment } from '../../environments/environment';
 
 import { ObrasService } from '../services/obras.service';
 import { CartService } from '../services/cart.service';
@@ -31,7 +32,7 @@ export class StoreComponent implements OnInit {
   ) { }
 
   //  Base URL del backend (donde está Express sirviendo /ImagenesDeObras)
-  private readonly backendBaseUrl = 'http://localhost:3000';
+  private readonly backendBaseUrl = environment.backendBaseUrl;
 
   // Aca hice un map para las imagenes que no coincidian bien
 

@@ -95,7 +95,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img [src]="user.image" [alt]="user.username" class="profile-img" />
+              <img [src]="getUserImage(user.image)" [alt]="user.username" class="profile-img" />
               <span>{{ user.username }}</span>
             </a>
 
@@ -103,7 +103,7 @@
 
               <!-- Cabecera del usuario -->
               <li class="dropdown-header-user">
-                <img [src]="user.image" [alt]="user.username" class="dropdown-avatar" />
+                <img [src]="getUserImage(user.image)" [alt]="user.username" class="dropdown-avatar" />
                 <div class="dropdown-user-info">
                   <span class="dropdown-username">{{ user.username }}</span>
                   <span class="dropdown-role" [class.is-admin]="user.role === 'admin'">
