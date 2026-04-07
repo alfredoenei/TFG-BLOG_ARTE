@@ -1,7 +1,293 @@
-.qty-input {
-  width: 90px;
+/* ═══════════════════════════════════════
+   CARRITO — Estilos Premium
+   ═══════════════════════════════════════ */
+
+.cart-wrapper {
+  max-width: 820px;
+  margin: 0 auto;
 }
 
-.price-col {
-  min-width: 90px;
+/* ── Header ── */
+.cart-title {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ── Carrito vacío ── */
+.empty-cart {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  opacity: 0.6;
+}
+
+/* ── Items del carrito ── */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cart-item {
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.2s ease;
+}
+
+.cart-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cart-thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.item-price {
+  font-size: 0.85rem;
+  color: #e8a838;
+  font-weight: 600;
+}
+
+/* ── Controles de cantidad ── */
+.qty-controls {
+  flex-shrink: 0;
+}
+
+.btn-qty {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-qty:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.qty-display {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.subtotal-price {
+  font-size: 1rem;
+  color: #e8a838;
+}
+
+/* ── Resumen / Summary ── */
+.cart-summary {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+}
+
+.summary-divider {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+.summary-total {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e8a838;
+}
+
+/* ── Botones de acción ── */
+.btn-checkout {
+  background: linear-gradient(135deg, #e8a838 0%, #d4922a 100%);
+  color: #1a1a2e;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-checkout:hover {
+  background: linear-gradient(135deg, #f0b848 0%, #e8a838 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(232, 168, 56, 0.3);
+  color: #1a1a2e;
+}
+
+.btn-brand {
+  background: linear-gradient(135deg, #e8a838 0%, #d4922a 100%);
+  color: #1a1a2e;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-brand:hover {
+  background: linear-gradient(135deg, #f0b848 0%, #e8a838 100%);
+  color: #1a1a2e;
+}
+
+/* ═══════════════════════════════════════
+   CHECKOUT — Paso 2
+   ═══════════════════════════════════════ */
+.checkout-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.checkout-items {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.checkout-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.checkout-item:last-child {
+  border-bottom: none;
+}
+
+.checkout-thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* ── Sección de pago ── */
+.payment-section h5 {
+  font-weight: 600;
+}
+
+.payment-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.payment-card .form-control {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  border-radius: 6px;
+}
+
+.payment-card .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.payment-card .form-control:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #e8a838;
+  box-shadow: 0 0 0 3px rgba(232, 168, 56, 0.15);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════
+   ÉXITO — Paso 3
+   ═══════════════════════════════════════ */
+.success-wrapper {
+  animation: fadeInUp 0.5s ease;
+}
+
+.success-icon {
+  font-size: 4rem;
+  animation: pulse 1.5s infinite;
+}
+
+.order-details {
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.order-row + .order-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.order-id {
+  color: #e8a838;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════
+   ANIMACIONES
+   ═══════════════════════════════════════ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 576px) {
+  .cart-item .d-flex {
+    flex-wrap: wrap;
+  }
+  
+  .cart-thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .qty-controls {
+    margin-top: 0.5rem;
+  }
 }
