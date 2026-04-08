@@ -3,21 +3,36 @@
    ═══════════════════════════════════════ */
 
 .art-section-container {
-  min-height: 80vh;
+  min-height: 100vh;
   padding: 2rem 1rem 5rem;
   color: #e0e0e0;
+  background-color: #0b1121; /* Ultra oscuro para que las obras resalten */
 }
 
 .header-overlay {
   text-align: center;
-  margin-bottom: 3.5rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin: -2rem -1rem 4rem; /* Extendemos para que toque los bordes si el padding lo permite */
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #14213D 0%, #0d1321 100%);
+  border-bottom: 3px solid #FCA311;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .header-overlay h1 {
-  letter-spacing: -1px;
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   color: #fff;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.header-overlay .lead {
+  color: #FCA311 !important;
+  font-weight: 500;
+  letter-spacing: 1px;
+  opacity: 1 !important;
 }
 
 /* ── Grid de Obras ── */
