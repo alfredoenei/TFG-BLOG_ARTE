@@ -49,6 +49,12 @@ export class NavbarComponent implements OnInit {
     this.isUserDropdownOpen.set(false);
   }
 
+  // Cierra los desplegables al navegar
+  closeDropdowns() {
+    this.isUserDropdownOpen.set(false);
+    this.isExploraDropdownOpen.set(false);
+  }
+
   // Cierra los desplegables si se hace clic fuera del componente
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {

@@ -37,21 +37,15 @@
 
           <ul class="dropdown-menu" [class.show]="isExploraDropdownOpen()">
             <li>
-              <a class="dropdown-item" routerLink="/arte-hasta-s-xix">Arte hasta el siglo XIX</a>
+              <a class="dropdown-item" routerLink="/arte-hasta-s-xix" (click)="closeDropdowns()">Arte hasta el siglo XIX</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" routerLink="/vanguardias">Vanguardias</a>
+              <a class="dropdown-item" routerLink="/vanguardias" (click)="closeDropdowns()">Vanguardias</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" routerLink="/arte-contemporaneo">Arte Contemporáneo</a>
-            </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item fw-bold text-warning" routerLink="/obras">
-                <i class="bi bi-grid-3x3-gap-fill me-1"></i> Catálogo General
-              </a>
+              <a class="dropdown-item" routerLink="/arte-contemporaneo" (click)="closeDropdowns()">Arte Contemporáneo</a>
             </li>
           </ul>
         </li>

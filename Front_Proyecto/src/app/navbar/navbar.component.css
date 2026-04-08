@@ -44,21 +44,32 @@
 
 /* Dropdown */
 .custom-navbar .dropdown-menu {
-  background-color: #14213D;
-  border: 1px solid #FCA311;
+  background-color: #0d1321; /* Slightly darker than navbar */
+  border: 1px solid rgba(252, 163, 17, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 0;
+  border-radius: 8px;
 }
 
 .custom-navbar .dropdown-item {
-  color: #E5E5E5;
+  color: #E5E5E5 !important;
+  background-color: transparent !important;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.25rem;
+  transition: all 0.2s ease;
 }
 
-.custom-navbar .dropdown-item:hover {
-  background-color: #FCA311;
-  color: #14213D;
+.custom-navbar .dropdown-item:hover,
+.custom-navbar .dropdown-item:focus,
+.custom-navbar .dropdown-item.active {
+  background-color: rgba(252, 163, 17, 0.1) !important;
+  color: #FCA311 !important;
+  padding-left: 1.5rem; /* Subtle indent on hover */
 }
 
 .custom-navbar .dropdown-divider {
-  border-top-color: #6c757d;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 0.5rem 0;
 }
 
 /* Search Form */
