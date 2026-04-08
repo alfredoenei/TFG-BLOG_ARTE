@@ -36,6 +36,16 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Ruta raíz profesional para verificar el estado
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "TFG Art API is running 🎨🚀",
+    endpoints: "/api/obras, /api/auth, /api/auth/blog",
+    documentation: "API Backend by Alfredo Enei"
+  });
+});
+
 // Rutas de la API
 app.use("/api/obras", obrasRoutes);
 app.use("/api/auth", signRoutes);
