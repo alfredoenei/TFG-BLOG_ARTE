@@ -7,7 +7,7 @@
 [![Bootstrap](https://img.shields.io/badge/Bootstrap_5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
 ## 🔗 Live Demo / Demostración en Vivo
-- **🚀 Frontend (Netlify):** [https://tfg-art-proyecto-alfredo.netlify.app](https://tfg-art-proyecto-alfredo.netlify.app)
+- **🚀 Frontend (Netlify):** [https://tfg-blog-arte.netlify.app](https://tfg-blog-arte.netlify.app)
 - **⚙️ Backend (Render):** [https://tfg-art-backend-alfredo.onrender.com](https://tfg-art-backend-alfredo.onrender.com)
 
 [English Version Below](#english-version)

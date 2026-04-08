@@ -19,7 +19,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:4200",
-  "https://tfg-art-proyecto-alfredo.netlify.app", // Anticipamos la URL de Netlify
+  "https://tfg-blog-arte.netlify.app", // URL real de Netlify
   /\.netlify\.app$/ // Permitir cualquier subdominio de Netlify (opcional)
 ];
 
