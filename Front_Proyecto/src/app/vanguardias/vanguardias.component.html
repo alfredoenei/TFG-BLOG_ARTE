@@ -1,33 +1,82 @@
-<h2>VANGUARDIAS</h2>
-
-@if (isLoading()) {
-<p>Cargando obras de vanguardias...</p>
-} @if (!isLoading() && obras2().length > 0) {
-<div class="container-obras">
-  @for (obra of obras2(); track obra.titulo) {
-  <div class="obra">
-    <span>{{ obra.titulo }}</span>
-    <span>{{ obra.artista.nombre }} ({{ obra.anio }})</span>
-    <img src="http://localhost:3000/{{ obra.image }}" alt="" />
-    <p>{{ obra.description }}</p>
-
-    <button class="btn-ver-mas" (click)="abrirModal(obra)">Ver más</button>
+<div class="art-section-container">
+  <div class="header-overlay">
+    <h1 class="display-4 fw-bold">VANGUARDIAS</h1>
+    <p class="lead opacity-75">Ruptura y experimentación: el nacimiento de la modernidad visual.</p>
   </div>
+
+  @if (isLoading()) {
+    <div class="loading-wrapper">
+      <div class="spinner-border text-warning" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-3">Cargando colección de vanguardias...</p>
+    </div>
+  } 
+  
+  @if (!isLoading() && obras2().length > 0) {
+    <div class="art-grid">
+      @for (obra of obras2(); track obra.titulo) {
+        <div class="art-card" (click)="abrirModal(obra)">
+          <div class="art-card-img-wrapper">
+            <img [src]="obra | image" [alt]="obra.titulo" loading="lazy" />
+            <div class="art-card-overlay">
+              <span class="btn-view-card">Ver ficha técnica</span>
+            </div>
+          </div>
+          <div class="art-card-info">
+            <h3 class="art-card-title">{{ obra.titulo }}</h3>
+            <p class="art-card-artist">{{ obra.artista.nombre }}</p>
+            <span class="art-card-year">{{ obra.anio }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  } 
+  
+  @if (!isLoading() && obras2().length === 0) {
+    <div class="empty-state">
+      <i class="bi bi-image-fill"></i>
+      <p>No se encontraron obras en esta colección.</p>
+    </div>
   }
 </div>
-} @else if (!isLoading() && obras2().length === 0) {
-<p>No se encontraron obras de Vanguardias.</p>
-} @if (mostrarModal && obraSeleccionada) {
-<div class="modal-fondo" (click)="cerrarModal()">
-  <div class="modal-tarjeta" (click)="$event.stopPropagation()">
-    <h3>{{ obraSeleccionada.titulo }}</h3>
-    <span>{{ obraSeleccionada.artista.nombre }} ({{ obraSeleccionada.anio }})</span>
 
-    <img src="http://localhost:3000/{{ obraSeleccionada.image }}" alt="" />
+<!-- Modal Glassmorphism -->
+@if (mostrarModal && obraSeleccionada) {
+  <div class="modal-backdrop-blur" (click)="cerrarModal()">
+    <div class="modal-card-premium shadow-2xl" (click)="$event.stopPropagation()">
+      <button class="btn-modal-close" (click)="cerrarModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
 
-    <p>{{ obraSeleccionada.bibliografia }}</p>
+      <div class="row g-0 h-100">
+        <div class="col-md-6 modal-img-section">
+          <img [src]="obraSeleccionada | image" [alt]="obraSeleccionada.titulo" />
+        </div>
+        <div class="col-md-6 modal-info-section">
+          <div class="modal-content-inner">
+            <h2 class="modal-title-main">{{ obraSeleccionada.titulo }}</h2>
+            <h4 class="modal-artist-name">{{ obraSeleccionada.artista.nombre }}</h4>
+            <div class="modal-meta">
+              <span class="badge rounded-pill bg-warning text-dark">{{ obraSeleccionada.anio }}</span>
+              <span class="badge rounded-pill border border-secondary text-secondary ms-2">{{ obraSeleccionada.tipo }}</span>
+            </div>
+            
+            <div class="modal-description-wrapper mt-4">
+              <h5 class="section-label">Bibliografía / Descripción</h5>
+              <div class="description-text">
+                {{ obraSeleccionada.bibliografia || 'No hay descripción detallada disponible para esta obra.' }}
+              </div>
+            </div>
 
-    <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
+            <div class="modal-actions mt-auto">
+              <button class="btn btn-warning w-100 fw-bold" (click)="cerrarModal()">
+                Regresar a la galería
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 }

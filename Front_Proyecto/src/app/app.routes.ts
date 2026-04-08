@@ -13,6 +13,7 @@ import { StoreComponent } from './store/store.component';
 import { ArteHastaSXIXComponent } from './arte-hasta-s-xix/arte-hasta-s-xix.component';
 import { ArteContemporaneoComponent } from './arte-contemporaneo/arte-contemporaneo.component';
 import { VanguardiasComponent } from './vanguardias/vanguardias.component';
+import { ObrasComponent } from './obras/obras.component';
 import { NewBlogEntryComponent } from './new-blog-entry/new-blog-entry.component';
 import { BlogContentComponent } from './blog-content/blog-content.component';
 
@@ -31,6 +32,7 @@ export const routes: Routes = [
   { path: 'arte-hasta-s-xix', component: ArteHastaSXIXComponent },
   { path: 'vanguardias', component: VanguardiasComponent },
   { path: 'arte-contemporaneo', component: ArteContemporaneoComponent },
+  { path: 'obras', component: ObrasComponent },
 
   // Autenticación
   { path: 'login', component: LoginComponent },

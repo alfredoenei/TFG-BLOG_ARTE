@@ -1,12 +1,12 @@
-// arte-contemporaneo.component.ts
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObrasService } from '../services/obras.service';
+import { ImagePipe } from '../pipes/image.pipe';
 
 @Component({
   selector: 'app-arte-contemporaneo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImagePipe],
   templateUrl: './arte-contemporaneo.component.html',
   styleUrls: ['./arte-contemporaneo.component.css'],
 })
@@ -34,11 +34,11 @@ export class ArteContemporaneoComponent implements OnInit {
 
   ngOnInit(): void {
     this.obrasService.getObras3().subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.obras3.set(res.results);
       },
-      error: (err) => {
-        console.error('Error al cargar obras:', err);
+      error: (err: any) => {
+        console.error('Error al cargar obras contemporáneas:', err);
       },
       complete: () => {
         this.isLoading.set(false);

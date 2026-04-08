@@ -1,14 +1,69 @@
-<h2>Obras 1</h2>
-<div class="obra" *ngFor="let obra of obras1">
-  {{ obra.titulo }} - {{ obra.artista }} ({{ obra.anio }})
-</div>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1 class="text-white fw-bold">CATÁLOGO HISTÓRICO</h1>
+    <p class="text-secondary">Explora nuestra colección curada por especialistas.</p>
+  </div>
 
-<h2>Obras 2</h2>
-<div class="obra" *ngFor="let obra of obras2">
-  {{ obra.titulo }} - {{ obra.artista }} ({{ obra.anio }})
-</div>
+  @if (isLoading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-warning" role="status"></div>
+    </div>
+  } @else {
+    <!-- Sección 1 -->
+    <section class="db-section">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="db-section-title">Arte hasta el s. XIX</h2>
+        <a routerLink="/arte-hasta-s-xix" class="btn btn-outline-warning btn-sm">Ver todo</a>
+      </div>
+      <div class="db-grid">
+        @for (obra of obras1; track obra._id) {
+          <div class="db-card">
+            <img [src]="obra | image" alt="" class="db-card-img" />
+            <div class="db-card-body">
+              <h6>{{ obra.titulo }}</h6>
+              <p>{{ obra.artista.nombre }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
 
-<h2>Obras 3</h2>
-<div class="obra" *ngFor="let obra of obras3">
-  {{ obra.titulo }} - {{ obra.artista }} ({{ obra.anio }})
+    <!-- Sección 2 -->
+    <section class="db-section mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="db-section-title">Vanguardias</h2>
+        <a routerLink="/vanguardias" class="btn btn-outline-warning btn-sm">Ver todo</a>
+      </div>
+      <div class="db-grid">
+        @for (obra of obras2; track obra._id) {
+          <div class="db-card">
+            <img [src]="obra | image" alt="" class="db-card-img" />
+            <div class="db-card-body">
+              <h6>{{ obra.titulo }}</h6>
+              <p>{{ obra.artista.nombre }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Sección 3 -->
+    <section class="db-section mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="db-section-title">Arte Contemporáneo</h2>
+        <a routerLink="/arte-contemporaneo" class="btn btn-outline-warning btn-sm">Ver todo</a>
+      </div>
+      <div class="db-grid">
+        @for (obra of obras3; track obra._id) {
+          <div class="db-card">
+            <img [src]="obra | image" alt="" class="db-card-img" />
+            <div class="db-card-body">
+              <h6>{{ obra.titulo }}</h6>
+              <p>{{ obra.artista.nombre }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
 </div>

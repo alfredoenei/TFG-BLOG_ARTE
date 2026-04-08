@@ -1,12 +1,12 @@
-// vanguardias.component.ts
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObrasService } from '../services/obras.service';
+import { ImagePipe } from '../pipes/image.pipe';
 
 @Component({
   selector: 'app-vanguardias',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImagePipe],
   templateUrl: './vanguardias.component.html',
   styleUrls: ['./vanguardias.component.css'],
 })
@@ -34,11 +34,11 @@ export class VanguardiasComponent implements OnInit {
 
   ngOnInit(): void {
     this.obrasService.getObras2().subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.obras2.set(res.results);
       },
-      error: (err) => {
-        console.error('Error al cargar obras:', err);
+      error: (err: any) => {
+        console.error('Error al cargar obras de vanguardias:', err);
       },
       complete: () => {
         this.isLoading.set(false);
