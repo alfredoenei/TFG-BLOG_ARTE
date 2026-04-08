@@ -49,8 +49,8 @@ export class ObrasService {
 
   // Colecciones 1 / 2 / 3
   getObrasColeccion(n: 1 | 2 | 3): Observable<ObrasResponse> {
-    // Retornamos getObras con el filtro de categoría (unifica la lógica)
-    return this.getObras({ categoria: n.toString() });
+    // Retornamos getObras con el filtro de categoría corregido para el backend
+    return this.getObras({ categoria: `obras${n}` });
   }
 
   // Alias para compatibilidad
